@@ -1,5 +1,3 @@
 # dotfiles
 
-## other dependencies
-
-install ag command aka the silver searcher
+new dotfiles for macbook
