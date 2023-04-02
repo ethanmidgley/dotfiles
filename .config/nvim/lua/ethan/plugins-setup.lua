@@ -84,6 +84,8 @@ return packer.startup(function(use)
 	-- git signs plugin
 	use("lewis6991/gitsigns.nvim")
 
+	use("abecodes/tabout.nvim")
+
 	if packer_bootstrap then
 		require("packer").sync()
 	end

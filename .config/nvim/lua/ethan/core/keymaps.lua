@@ -5,7 +5,7 @@ require("ethan.core.keymap-utils")
 
 -- increment and decrement
 nnoremap("+", "<C-a>")
-nnoremap("n", "-", "<C-x>")
+nnoremap("-", "<C-x>")
 
 -- select all
 nmap("<Leader>a", "gg<S-v>G")
@@ -47,9 +47,12 @@ nmap("<Leader>mg", ":MaximizerToggle<Return>")
 -- open file explorer
 nmap("<Leader>sf", ":NvimTreeToggle<Return>")
 
--- telescope 
+-- telescope
 nmap("<Leader>ff", "<cmd>Telescope find_files<cr>")
 nmap("<Leader>fs", "<cmd>Telescope live_grep<cr>")
 nmap("<Leader>fc", "<cmd>Telescope grep_string<cr>")
 nmap("<Leader>fb", "<cmd>Telescope buffers<cr>")
 nmap("<Leader>fh", "<cmd>Telescope help_tags<cr>")
+
+-- error lines
+nmap("<Leader>sl", "<cmd>Lspsaga show_line_diagnostics<cr>")

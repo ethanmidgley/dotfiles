@@ -11,6 +11,7 @@ ENABLE_CORRECTION="true"
 plugins=(git node nvm golang)
 
 source $ZSH/oh-my-zsh.sh
+source ~/.local/bin/bashmarks.sh
 
 # export MANPATH="/usr/local/man:$MANPATH"
 
@@ -45,9 +46,9 @@ alias tls="tmux ls"
 
 
 # Display custom terminal art depending if it git repository
-if [[ ! -d ".git" ]]; then
-	echo -e; neofetch;
-else
+if git rev-parse --git-dir > /dev/null 2>&1; then
 	echo -e; onefetch;
+else
+	echo -e; neofetch;
 fi
 
