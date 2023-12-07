@@ -8,7 +8,7 @@ ZSH_THEME="cloud"
 ENABLE_CORRECTION="true"
 
 # Enable plugins
-plugins=(git node nvm golang)
+plugins=(git node nvm golang kubectl)
 
 source $ZSH/oh-my-zsh.sh
 source ~/.local/bin/bashmarks.sh
@@ -20,6 +20,14 @@ source ~/.local/bin/bashmarks.sh
 
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
+#
+export REACT_EDITOR=nvim
+
+# add flutter sdk to path
+export PATH=~/Code/Library/flutter/bin:$PATH
+
+# add psql to path
+export PATH=/opt/homebrew/opt/libpq/bin:$PATH
 
 
 # Add nvm to the path 
@@ -31,6 +39,8 @@ export NVM_DIR="$HOME/.nvm"
 alias vi="nvim"
 alias vim="nvim"
 alias ide="tmux split-window -v -p 30;  tmux split-window -h -p 50;"
+alias k="kubectl"
+alias get_idf=". $HOME/Code/esp/esp-idf/export.sh"
 
 # Tmux shortcuts
 function ta() {
@@ -42,6 +52,8 @@ function trm() {
 } 
 
 alias tls="tmux ls"
+
+alias gcc="gcc-13"
 
 
 
