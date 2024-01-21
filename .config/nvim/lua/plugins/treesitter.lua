@@ -21,6 +21,8 @@ return {
         "sql",
         "svelte",
         "python",
+        "haskell",
+        "elixir",
       },
 
       -- matchup = {

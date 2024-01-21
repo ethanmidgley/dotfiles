@@ -25,6 +25,9 @@ return {
       inlay_hints = { enabled = true },
       ---@type lspconfig.options
       servers = {
+        gopls = {},
+        hls = {},
+        pylsp = {},
         cssls = {},
         tailwindcss = {
           root_dir = function(...)
@@ -35,7 +38,7 @@ return {
           root_dir = function(...)
             return require("lspconfig.util").root_pattern(".git")(...)
           end,
-          single_file_support = false,
+          single_file_support = true,
           settings = {
             typescript = {
               inlayHints = {
