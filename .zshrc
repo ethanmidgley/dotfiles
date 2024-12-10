@@ -40,6 +40,7 @@ alias vi="nvim"
 alias vim="nvim"
 alias ide="tmux split-window -v -p 30;  tmux split-window -h -p 50;"
 alias k="kubectl"
+alias kn='kubectl config set-context --current --namespace'
 alias get_idf=". $HOME/Code/esp/esp-idf/export.sh"
 
 # Tmux shortcuts
@@ -53,9 +54,18 @@ function trm() {
 
 alias tls="tmux ls"
 
-alias gcc="gcc-13"
+alias gcc="gcc-13 -Wall -pedantic"
+alias evim="NVIM_APPNAME=evim nvim"
 
+export PATH="/opt/homebrew/opt/openjdk@17/bin:$PATH"
+export CPPFLAGS="-I/opt/homebrew/opt/openjdk@17/include"
 
+alias venv="source env/bin/activate"
+alias venv-c="python3 -m venv env"
+
+[ -f "/Users/ethan/.ghcup/env" ] && source "/Users/ethan/.ghcup/env" # ghcup-env
+eval "$(fzf --zsh)"
+eval "$(zoxide init zsh)"
 
 # Display custom terminal art depending if it git repository
 if git rev-parse --git-dir > /dev/null 2>&1; then
@@ -63,4 +73,6 @@ if git rev-parse --git-dir > /dev/null 2>&1; then
 else
 	echo -e; neofetch;
 fi
+  
 
+. "/Users/ethan/.deno/env"

@@ -103,7 +103,7 @@ return {
       local defaults = require("cmp.config.default")()
       return {
         completion = {
-          completeopt = "menu,menuone,noinsert",
+          completeopt = "menu,menuone,noinsert" .. (auto_select and "" or ",noselect"),
         },
         snippet = {
           expand = function(args)

@@ -11,6 +11,7 @@ return {
         "shfmt",
         "tailwindcss-language-server",
         "typescript-language-server",
+        "vue-language-server",
         "css-lsp",
         "clangd",
         "mypy",
@@ -21,20 +22,25 @@ return {
   -- lsp servers
   {
     "neovim/nvim-lspconfig",
+    dependencies = { "williamboman/mason.nvim" },
     opts = {
       inlay_hints = { enabled = true },
       ---@type lspconfig.options
       servers = {
         gopls = {},
-        hls = {},
+        hls = {
+          filetypes = { "haskell", "lhaskell", "cabal" },
+        },
         pylsp = {},
         cssls = {},
+        volar = {},
         tailwindcss = {
           root_dir = function(...)
             return require("lspconfig.util").root_pattern(".git")(...)
           end,
         },
         tsserver = {
+          filetypes = { "typescript", "javascript", "typescriptreact", "javascriptreact" },
           root_dir = function(...)
             return require("lspconfig.util").root_pattern(".git")(...)
           end,
