@@ -46,5 +46,5 @@ keymap.set("n", "<Leader>fs", ":Telescope live_grep<Return>")
 keymap.set("n", "<Leader>fc", ":Telescope grep_string<Return>")
 
 keymap.set("n", "<C-j>", function()
-	vim.diagnostic.goto_next()
+  vim.diagnostic.goto_next()
 end, opts)
