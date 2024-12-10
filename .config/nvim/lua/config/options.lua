@@ -9,7 +9,6 @@ opt.showcmd = true
 opt.cmdheight = 1
 
 -- line numbers
-opt.relativenumber = true
 opt.number = true
 
 -- set up tabs

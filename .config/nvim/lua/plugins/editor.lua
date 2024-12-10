@@ -1,208 +1,180 @@
 return {
-  {
-    enabled = false,
-    "folke/flash.nvim",
-    ---@type Flash.Config
-    opts = {
-      search = {
-        forward = true,
-        multi_window = false,
-        wrap = false,
-        incremental = true,
-      },
-    },
-  },
 
-  {
-    "echasnovski/mini.hipatterns",
-    event = "BufReadPre",
-    opts = {
-      highlighters = {
-        hsl_color = {
-          pattern = "hsl%(%d+,? %d+,? %d+%)",
-          group = function(_, match)
-            local utils = require("craftzdog.utils")
-            local h, s, l = match:match("hsl%((%d+),? (%d+),? (%d+)%)")
-            h, s, l = tonumber(h), tonumber(s), tonumber(l)
-            local hex_color = utils.hslToHex(h, s, l)
-            return MiniHipatterns.compute_hex_color_group(hex_color, "bg")
-          end,
-        },
-      },
-    },
-  },
+	{
+		"folke/todo-comments.nvim",
+		dependencies = { "nvim-lua/plenary.nvim" },
+		opts = {
+			-- your configuration comes here
+			-- or leave it empty to use the default settings
+			-- refer to the configuration section below
+		},
+	},
 
-  {
-    "dinhhuy258/git.nvim",
-    event = "BufReadPre",
-    opts = {
-      keymaps = {
-        -- Open blame window
-        blame = "<Leader>gb",
-        -- Open file/folder in git repository
-        browse = "<Leader>go",
-      },
-    },
-  },
+	{
+		"folke/ts-comments.nvim",
+		opts = {},
+		event = "VeryLazy",
+		enabled = vim.fn.has("nvim-0.10.0") == 1,
+	},
 
-  {
-    "telescope.nvim",
-    dependencies = {
-      {
-        "nvim-telescope/telescope-fzf-native.nvim",
-        build = "make",
-      },
-      "nvim-telescope/telescope-file-browser.nvim",
-    },
-    keys = {
-      {
-        "<leader>fP",
-        function()
-          require("telescope.builtin").find_files({
-            cwd = require("lazy.core.config").options.root,
-          })
-        end,
-        desc = "Find Plugin File",
-      },
-      {
-        ";f",
-        function()
-          local builtin = require("telescope.builtin")
-          builtin.find_files({
-            no_ignore = false,
-            hidden = true,
-          })
-        end,
-        desc = "Lists files in your current working directory, respects .gitignore",
-      },
-      {
-        ";r",
-        function()
-          local builtin = require("telescope.builtin")
-          builtin.live_grep()
-        end,
-        desc = "Search for a string in your current working directory and get results live as you type, respects .gitignore",
-      },
-      {
-        "\\\\",
-        function()
-          local builtin = require("telescope.builtin")
-          builtin.buffers()
-        end,
-        desc = "Lists open buffers",
-      },
-      {
-        ";t",
-        function()
-          local builtin = require("telescope.builtin")
-          builtin.help_tags()
-        end,
-        desc = "Lists available help tags and opens a new window with the relevant help info on <cr>",
-      },
-      {
-        ";;",
-        function()
-          local builtin = require("telescope.builtin")
-          builtin.resume()
-        end,
-        desc = "Resume the previous telescope picker",
-      },
-      {
-        ";e",
-        function()
-          local builtin = require("telescope.builtin")
-          builtin.diagnostics()
-        end,
-        desc = "Lists Diagnostics for all open buffers or a specific buffer",
-      },
-      {
-        ";s",
-        function()
-          local builtin = require("telescope.builtin")
-          builtin.treesitter()
-        end,
-        desc = "Lists Function names, variables, from Treesitter",
-      },
-      {
-        "sf",
-        function()
-          local telescope = require("telescope")
+	{
+		"nvim-neo-tree/neo-tree.nvim",
+		branch = "v3.x",
+		opts = {
+			filesystem = {
+				filtered_items = {
+					hide_dotfiles = false,
+				},
+			},
+		},
+		dependencies = {
+			"nvim-lua/plenary.nvim",
+			"nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
+			"MunifTanjim/nui.nvim",
+			-- "3rd/image.nvim", -- Optional image support in preview window: See `# Preview Mode` for more information
+		},
+	},
 
-          local function telescope_buffer_dir()
-            return vim.fn.expand("%:p:h")
-          end
+	{
+		"nvim-telescope/telescope.nvim",
+		branch = "0.1.x",
+		dependencies = {
+			"nvim-lua/plenary.nvim",
+			{ "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
+			"nvim-tree/nvim-web-devicons",
+		},
+		config = function()
+			local telescope = require("telescope")
+			local actions = require("telescope.actions")
 
-          telescope.extensions.file_browser.file_browser({
-            path = "%:p:h",
-            cwd = telescope_buffer_dir(),
-            respect_gitignore = false,
-            hidden = true,
-            grouped = true,
-            previewer = false,
-            initial_mode = "normal",
-            layout_config = { height = 40 },
-          })
-        end,
-        desc = "Open File Browser with the path of the current buffer",
-      },
-    },
-    config = function(_, opts)
-      local telescope = require("telescope")
-      local actions = require("telescope.actions")
-      local fb_actions = require("telescope").extensions.file_browser.actions
+			telescope.setup({
+				defaults = {
+					mappings = {
+						i = {
+							["<C-k>"] = actions.move_selection_previous,
+							["<C-j>"] = actions.move_selection_next,
+							["<C-q>"] = actions.send_selected_to_qflist + actions.open_qflist,
+						},
+					},
+				},
+			})
 
-      opts.defaults = vim.tbl_deep_extend("force", opts.defaults, {
-        wrap_results = true,
-        layout_strategy = "horizontal",
-        layout_config = { prompt_position = "top" },
-        sorting_strategy = "ascending",
-        winblend = 0,
-        mappings = {
-          n = {},
-        },
-      })
-      opts.pickers = {
-        diagnostics = {
-          theme = "ivy",
-          initial_mode = "normal",
-          layout_config = {
-            preview_cutoff = 9999,
-          },
-        },
-      }
-      opts.extensions = {
-        file_browser = {
-          theme = "dropdown",
-          -- disables netrw and use telescope-file-browser in its place
-          hijack_netrw = true,
-          mappings = {
-            -- your custom insert mode mappings
-            ["n"] = {
-              -- your custom normal mode mappings
-              ["N"] = fb_actions.create,
-              ["h"] = fb_actions.goto_parent_dir,
-              ["/"] = function()
-                vim.cmd("startinsert")
-              end,
-              ["<C-u>"] = function(prompt_bufnr)
-                for i = 1, 10 do
-                  actions.move_selection_previous(prompt_bufnr)
-                end
-              end,
-              ["<C-d>"] = function(prompt_bufnr)
-                for i = 1, 10 do
-                  actions.move_selection_next(prompt_bufnr)
-                end
-              end,
-              ["<PageUp>"] = actions.preview_scrolling_up,
-              ["<PageDown>"] = actions.preview_scrolling_down,
-            },
-          },
-        },
-      }
-      telescope.setup(opts)
-      require("telescope").load_extension("fzf")
-      require("telescope").load_extension("file_browser")
-    end,
-  },
+			telescope.load_extension("fzf")
+		end,
+	},
+
+	{
+		"hrsh7th/nvim-cmp",
+		event = "InsertEnter",
+		dependencies = {
+			"hrsh7th/cmp-buffer",
+			"hrsh7th/cmp-path",
+			"L3MON4D3/LuaSnip",
+			"saadparwaiz1/cmp_luasnip",
+			"rafamadriz/friendly-snippets",
+		},
+		config = function()
+			local cmp = require("cmp")
+			local luasnip = require("luasnip")
+
+			require("luasnip.loaders.from_vscode").lazy_load()
+
+			cmp.setup({
+				auto_brackets = {},
+				completion = {
+					completeopt = "menu,menuone,preview,noselect",
+				},
+				snippet = {
+					expand = function(args)
+						luasnip.lsp_expand(args.body)
+					end,
+				},
+				mapping = cmp.mapping.preset.insert({
+					["<C-k>"] = cmp.mapping.select_prev_item(),
+					["<C-j>"] = cmp.mapping.select_next_item(),
+					["<C-b>"] = cmp.mapping.scroll_docs(-4),
+					["<C-f>"] = cmp.mapping.scroll_docs(4),
+					["<C-Space>"] = cmp.mapping.complete(),
+					["<C-e>"] = cmp.mapping.abort(),
+					["<Return>"] = cmp.mapping.confirm({ select = false }),
+				}),
+				sources = cmp.config.sources({
+					{ name = "nvim_lsp" },
+					{ name = "luasnip" },
+					{ name = "buffer" },
+					{ name = "path" },
+				}),
+			})
+		end,
+	},
+
+	-- formatting with conform
+	{
+		"stevearc/conform.nvim",
+		event = { "BufReadPre", "BufNewFile" },
+		config = function()
+			local conform = require("conform")
+
+			conform.setup({
+				formatters_by_ft = {
+					javascript = { "prettier" },
+					typescript = { "prettier" },
+					javascriptreact = { "prettier" },
+					typescriptreact = { "prettier" },
+					svelte = { "prettier" },
+					css = { "prettier" },
+					html = { "prettier" },
+					json = { "prettier" },
+					yaml = { "prettier" },
+					markdown = { "prettier" },
+					graphql = { "prettier" },
+					lua = { "stylua" },
+					python = { "isort", "black" },
+				},
+				format_on_save = {
+					lsp_fallback = true,
+					async = false,
+					timeout_ms = 500,
+				},
+			})
+			vim.keymap.set({ "n", "v" }, "<leader>mp", function()
+				conform.format({
+					lsp_fallback = true,
+					async = false,
+					timeout_ms = 500,
+				})
+			end, { desc = "Format file or range (in visual mode)" })
+		end,
+	},
+
+	-- linting with nvim-lint
+	{
+		"mfussenegger/nvim-lint",
+		event = { "BufReadPre", "BufNewFile" },
+		config = function()
+			local lint = require("lint")
+
+			lint.linters_by_ft = {
+				javascript = { "eslint_d" },
+				typescript = { "eslint_d" },
+				javascriptreact = { "eslint_d" },
+				typescriptreact = { "eslint_d" },
+				svelte = { "eslint_d" },
+				python = { "pylint" },
+			}
+
+			local lint_augroup = vim.api.nvim_create_augroup("lint", { clear = true })
+
+			vim.api.nvim_create_autocmd({ "BufEnter", "BufWritePost", "InsertLeave" }, {
+				group = lint_augroup,
+				callback = function()
+					lint.try_lint()
+				end,
+			})
+
+			vim.keymap.set("n", "<leader>l", function()
+				lint.try_lint()
+			end, { desc = "Trigger linting for current file" })
+		end,
+	},
 }

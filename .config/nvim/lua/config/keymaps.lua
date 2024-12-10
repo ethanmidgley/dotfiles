@@ -35,6 +35,16 @@ keymap.set("n", "<C-w><right>", "<C-w>>")
 keymap.set("n", "<C-w><up>", "<C-w>+")
 keymap.set("n", "<C-w><down>", "<C-w>-")
 
+-- Neotree
+keymap.set("n", "se", ":Neotree toggle current<Return>")
+keymap.set("n", "fe", ":Neotree focus<Return>")
+
+-- Telescope commands
+keymap.set("n", "<Leader>ff", ":Telescope find_files<Return>")
+keymap.set("n", "<Leader>fr", ":Telescope oldfiles<Return>")
+keymap.set("n", "<Leader>fs", ":Telescope live_grep<Return>")
+keymap.set("n", "<Leader>fc", ":Telescope grep_string<Return>")
+
 keymap.set("n", "<C-j>", function()
-  vim.diagnostic.goto_next()
+	vim.diagnostic.goto_next()
 end, opts)
