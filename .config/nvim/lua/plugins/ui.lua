@@ -1,17 +1,21 @@
 return {
 
   {
-    "folke/tokyonight.nvim",
+    "arzg/vim-colors-xcode",
     priority = 1000,
     lazy = false,
     config = function()
-      local tokyonight = require("tokyonight")
+      -- vim.cmd("colorscheme xcodedark")
+      vim.cmd("colorscheme xcodedarkhc")
 
-      tokyonight.setup({
-        style = "moon",
-      })
+      -- Fix the floating window bg color since it is an old theme
+      vim.api.nvim_set_hl(0, "NormalFloat", { link = "Normal" })
+      vim.api.nvim_set_hl(0, "FloatBorder", { link = "Normal" })
 
-      vim.cmd("colorscheme tokyonight")
+      -- Floating bg color for neo-tree
+      vim.api.nvim_set_hl(0, "NeoTreeNormal", { link = "Normal" })
+      vim.api.nvim_set_hl(0, "NeoTreeNormalNC", { link = "Normal" })
+      vim.api.nvim_set_hl(0, "NeoTreeFloatBorder", { link = "Normal" })
     end,
   },
 
@@ -50,7 +54,7 @@ return {
     event = "VeryLazy",
     opts = {
       options = {
-        theme = "tokyonight",
+        -- theme = "xcodedark",
         globalstatus = false,
       },
     },

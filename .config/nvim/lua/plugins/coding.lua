@@ -25,6 +25,11 @@ return {
   },
 
   {
+    "windwp/nvim-ts-autotag",
+    opts = {},
+  },
+
+  {
     "echasnovski/mini.pairs",
     version = "*",
     event = "VeryLazy",

@@ -22,7 +22,7 @@ return {
 
       mason_lspconfig.setup({
         ensure_installed = {
-          "ts_ls",
+          "vtsls",
           "html",
           "cssls",
           "tailwindcss",
@@ -32,6 +32,8 @@ return {
           "emmet_ls",
           "prismals",
           "pyright",
+          "elixirls",
+          "vue_ls",
         },
         automatic_installation = true,
       })
@@ -61,6 +63,8 @@ return {
       local mason_lspconfig = require("mason-lspconfig")
       local cmp_nvim_lsp = require("cmp_nvim_lsp")
       local keymap = vim.keymap
+
+      local capabilites = cmp_nvim_lsp.default_capabilities()
 
       vim.api.nvim_create_autocmd("LspAttach", {
         group = vim.api.nvim_create_augroup("UserLspConfig", {}),
@@ -95,10 +99,14 @@ return {
           keymap.set("n", "<leader>d", vim.diagnostic.open_float, opts)
 
           opts.desc = "Go to previous diagnostic"
-          keymap.set("n", "[d", vim.diagnostic.goto_prev, opts)
+          keymap.set("n", "[d", function()
+            vim.diagnostic.goto_prev({ float = false })
+          end, opts)
 
           opts.desc = "Go to next diagnostic"
-          keymap.set("n", "]d", vim.diagnostic.goto_next, opts)
+          keymap.set("n", "]d", function()
+            vim.diagnostic.goto_next({ float = false })
+          end, opts)
 
           opts.desc = "Show documentation for what is under cursor"
           keymap.set("n", "K", vim.lsp.buf.hover, opts)
@@ -108,27 +116,68 @@ return {
         end,
       })
 
-      local capabilites = cmp_nvim_lsp.default_capabilities()
-
       local signs = { Error = " ", Warn = " ", Hint = "󰠠 ", Info = " " }
-      for type, icon in pairs(signs) do
-        local hl = "DiagnosticSign" .. type
-        vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
+      vim.diagnostic.config({
+        signs = {
+          text = {
+            [vim.diagnostic.severity.ERROR] = signs.Error,
+            [vim.diagnostic.severity.WARN] = signs.Warn,
+            [vim.diagnostic.severity.INFO] = signs.Info,
+            [vim.diagnostic.severity.HINT] = signs.Hint,
+          },
+        },
+        severity_sort = true,
+        float = false,
+        -- float = { border = "rounded", source = "if_many" },
+        virtual_lines = {
+          current_line = true,
+        },
+        -- virtual_text = {
+        --   current_line = true,
+        --   source = "if_many",
+        --   spacing = 2,
+        --   format = function(diagnostic)
+        --     return "Hello" .. diagnostic.message
+        --   end,
+        -- },
+      })
+
+      local lsp_dir = vim.fn.stdpath("config") .. "/lua/lsp"
+      for _, file in ipairs(vim.fn.glob(lsp_dir .. "/*.lua", true, true)) do
+        local name = vim.fn.fnamemodify(file, ":t:r")
+        local ok, config = pcall(require, "lsp." .. name)
+        if ok then
+          vim.lsp.enable(name, {
+            capabilities = capabilities,
+          })
+        else
+          vim.notify("LSP config failed: " .. name, vim.log.levels.ERROR)
+        end
       end
 
-      mason_lspconfig.setup_handlers({
-        function(server_name)
-          lspconfig[server_name].setup({
-            capabilites = capabilites,
-          })
-        end,
-        -- ["ts_ls"] = function()
-        -- 	lspconfig["ts_ls"].setup({
-        -- 		capabilites = capabilites,
-        -- 		filetypes = { "typescript", "javascript", "typescriptreact", "javascriptreact" },
-        -- 	})
-        -- end,
-      })
+      --
+      -- local mason_path = vim.fn.stdpath("data") .. "/mason/packages/"
+      -- local vue_typescript_plugin = mason_path
+      --   .. "vue-language-server/node_modules/@vue/language-server/node_modules/@vue/typescript-plugin"
+      --
+      -- vim.lsp.enable("ts_ls", {
+      --   init_options = {
+      --     plugins = {
+      --       {
+      --         name = "@vue/typescript-plugin",
+      --         location = vue_typescript_plugin,
+      --         languages = { "vue" },
+      --       },
+      --     },
+      --   },
+      --   filetypes = {
+      --     "javascript",
+      --     "javascriptreact",
+      --     "typescript",
+      --     "typescriptreact",
+      --     "vue",
+      --   },
+      -- })
     end,
   },
 }

@@ -10,6 +10,8 @@ opt.cmdheight = 1
 
 -- line numbers
 opt.number = true
+opt.relativenumber = true
+opt.cursorline = true
 
 -- set up tabs
 opt.tabstop = 2
@@ -18,7 +20,7 @@ opt.expandtab = true
 opt.autoindent = true
 
 -- line wrapping
-opt.wrap = false
+opt.wrap = true
 
 -- search settings
 opt.ignorecase = true
@@ -50,3 +52,5 @@ opt.iskeyword:append("-")
 -- Undercurl
 vim.cmd([[let &t_Cs = "\e[4:3m"]])
 vim.cmd([[let &t_Ce = "\e[4:0m"]])
+
+vim.opt.winborder = "rounded"
