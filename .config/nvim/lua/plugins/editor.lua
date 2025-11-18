@@ -135,7 +135,7 @@ return {
         format_on_save = {
           lsp_fallback = true,
           async = false,
-          timeout_ms = 500,
+          timeout_ms = 5000,
         },
       })
       vim.keymap.set({ "n", "v" }, "<leader>mp", function()
@@ -176,6 +176,37 @@ return {
       vim.keymap.set("n", "<leader>l", function()
         lint.try_lint()
       end, { desc = "Trigger linting for current file" })
+
+      local VENV = os.getenv("VIRTUAL_ENV")
+      if VENV then
+        local bin_path = VENV .. "/bin/"
+        local pylint = lint.linters["pylint"]
+
+        if pylint then
+          pylint.cmd = bin_path .. pylint.cmd
+        end
+      end
+    end,
+  },
+
+  {
+    "chrishrb/gx.nvim",
+    keys = { { "gx", "<cmd>Browse<cr>", mode = { "n", "x" } } },
+    cmd = { "Browse" },
+    init = function()
+      vim.g.netrw_nogx = 1 -- disable netrw gx
+    end,
+    dependencies = { "nvim-lua/plenary.nvim" }, -- Required for Neovim < 0.10.0
+    config = true, -- default settings
+    submodules = false, -- not needed, submodules are required only for tests
+  },
+
+  {
+    "lervag/vimtex",
+    lazy = false,
+    init = function()
+      vim.g.vimtex_view_method = "skim"
+      vim.g.vimtex_compiler_latexmk = { aux_dir = "aux" }
     end,
   },
 }

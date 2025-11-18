@@ -44,7 +44,7 @@ return {
           "stylua", -- lua formatter
           "isort", -- python formatter
           "black", -- python formatter
-          "pylint", -- python linter
+          "pylint",
           "eslint_d", -- js linter
         },
       })
@@ -63,8 +63,6 @@ return {
       local mason_lspconfig = require("mason-lspconfig")
       local cmp_nvim_lsp = require("cmp_nvim_lsp")
       local keymap = vim.keymap
-
-      local capabilites = cmp_nvim_lsp.default_capabilities()
 
       vim.api.nvim_create_autocmd("LspAttach", {
         group = vim.api.nvim_create_augroup("UserLspConfig", {}),
@@ -129,55 +127,18 @@ return {
         severity_sort = true,
         float = false,
         -- float = { border = "rounded", source = "if_many" },
-        virtual_lines = {
-          current_line = true,
-        },
-        -- virtual_text = {
+        -- virtual_lines = {
         --   current_line = true,
-        --   source = "if_many",
-        --   spacing = 2,
-        --   format = function(diagnostic)
-        --     return "Hello" .. diagnostic.message
-        --   end,
         -- },
+        virtual_text = {
+          current_line = false,
+          source = "if_many",
+          spacing = 2,
+          -- format = function(diagnostic)
+          --   return "Hello" .. diagnostic.message
+          -- end,
+        },
       })
-
-      local lsp_dir = vim.fn.stdpath("config") .. "/lua/lsp"
-      for _, file in ipairs(vim.fn.glob(lsp_dir .. "/*.lua", true, true)) do
-        local name = vim.fn.fnamemodify(file, ":t:r")
-        local ok, config = pcall(require, "lsp." .. name)
-        if ok then
-          vim.lsp.enable(name, {
-            capabilities = capabilities,
-          })
-        else
-          vim.notify("LSP config failed: " .. name, vim.log.levels.ERROR)
-        end
-      end
-
-      --
-      -- local mason_path = vim.fn.stdpath("data") .. "/mason/packages/"
-      -- local vue_typescript_plugin = mason_path
-      --   .. "vue-language-server/node_modules/@vue/language-server/node_modules/@vue/typescript-plugin"
-      --
-      -- vim.lsp.enable("ts_ls", {
-      --   init_options = {
-      --     plugins = {
-      --       {
-      --         name = "@vue/typescript-plugin",
-      --         location = vue_typescript_plugin,
-      --         languages = { "vue" },
-      --       },
-      --     },
-      --   },
-      --   filetypes = {
-      --     "javascript",
-      --     "javascriptreact",
-      --     "typescript",
-      --     "typescriptreact",
-      --     "vue",
-      --   },
-      -- })
     end,
   },
 }

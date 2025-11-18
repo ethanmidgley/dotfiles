@@ -61,6 +61,13 @@ return {
   },
 
   {
+    "folke/zen-mode.nvim",
+    opts = {
+      vim.keymap.set("n", "<leader>z", "<cmd>ZenMode<Return>"),
+    },
+  },
+
+  {
     "nvimdev/dashboard-nvim",
     event = "VimEnter",
     config = function()
