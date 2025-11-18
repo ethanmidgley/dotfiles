@@ -8,10 +8,9 @@ ZSH_THEME="cloud"
 ENABLE_CORRECTION="true"
 
 # Enable plugins
-plugins=(git node nvm golang kubectl)
+plugins=(git node nvm golang kubectl dotenv zoxide)
 
 source $ZSH/oh-my-zsh.sh
-source ~/.local/bin/bashmarks.sh
 
 # export MANPATH="/usr/local/man:$MANPATH"
 
@@ -29,6 +28,16 @@ export PATH=~/Code/Library/flutter/bin:$PATH
 # add psql to path
 export PATH=/opt/homebrew/opt/libpq/bin:$PATH
 
+export GOPATH=$HOME/go
+export GOROOT=/usr/local/go
+export GOBIN=$GOPATH/bin
+export PATH=$PATH:$GOPATH
+export PATH=$PATH:$GOBIN
+# export PATH=$PATH:$GOROOT/bin
+
+
+# Add elixir version manager to path
+[[ -s "$HOME/.kiex/scripts/kiex" ]] && source "$HOME/.kiex/scripts/kiex"
 
 # Add nvm to the path 
 export NVM_DIR="$HOME/.nvm"
@@ -38,10 +47,12 @@ export NVM_DIR="$HOME/.nvm"
 # Set alias
 alias vi="nvim"
 alias vim="nvim"
-alias ide="tmux split-window -v -p 30;  tmux split-window -h -p 50;"
+
+alias g="git"
+alias t="taskell"
+
 alias k="kubectl"
 alias kn='kubectl config set-context --current --namespace'
-alias get_idf=". $HOME/Code/esp/esp-idf/export.sh"
 
 # Tmux shortcuts
 function ta() {
@@ -52,27 +63,29 @@ function trm() {
   tmux kill-session -t "$1"
 } 
 
-alias tls="tmux ls"
+alias tasks="taskell ~/Desktop/.tasks.md"
 
-alias gcc="gcc-13 -Wall -pedantic"
-alias evim="NVIM_APPNAME=evim nvim"
+alias tls="tmux ls"
+alias ct="~/.ssh/cafe_tunnel.sh"
+alias tunnel_home="sshuttle -r external 0.0.0.0/0 -vv"
+
+alias gcc="gcc-14 -Wall -pedantic"
 
 export PATH="/opt/homebrew/opt/openjdk@17/bin:$PATH"
 export CPPFLAGS="-I/opt/homebrew/opt/openjdk@17/include"
 
 alias venv="source env/bin/activate"
-alias venv-c="python3 -m venv env"
+alias venv-c="python3.14 -m venv env"
 
 [ -f "/Users/ethan/.ghcup/env" ] && source "/Users/ethan/.ghcup/env" # ghcup-env
 eval "$(fzf --zsh)"
-eval "$(zoxide init zsh)"
+eval "$(zoxide init --cmd cd zsh)"
 
 # Display custom terminal art depending if it git repository
 if git rev-parse --git-dir > /dev/null 2>&1; then
 	echo -e; onefetch;
 else
-	echo -e; neofetch;
+	echo -e; fastfetch;
 fi
-  
 
 . "/Users/ethan/.deno/env"
