@@ -1,0 +1,16 @@
+[include]
+  path = "./config.private"
+
+[core]
+	excludesfile = /Users/ethan/.gitignore_global
+	editor = nvim
+
+[includeIf "gitdir:~/Documents/strathclyde/"]
+  path = "~/Documents/strathclyde/.gitconfig"
+
+[init]
+	defaultBranch = master
+
+[http]
+	postBuffer = 1524288000
+
