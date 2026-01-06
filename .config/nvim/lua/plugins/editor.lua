@@ -206,6 +206,7 @@ return {
     lazy = false,
     init = function()
       vim.g.vimtex_view_method = "skim"
+      vim.g.vimtex_view_reverse_method = 1
       vim.g.vimtex_compiler_latexmk = { aux_dir = "aux" }
     end,
   },

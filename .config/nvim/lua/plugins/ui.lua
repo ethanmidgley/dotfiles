@@ -45,6 +45,10 @@ return {
       -- Set to `true` if your font supports legacy computing symbols (block unicode symbols).
       -- Smears will blend better on all backgrounds.
       legacy_computing_symbols_support = false,
+
+      stiffness = 0.5,
+      trailing_stiffness = 0.5,
+      matrix_pixel_threshold = 0.5,
     },
   },
 

@@ -37,6 +37,9 @@ return {
   settings = {
     ltex = {
       language = "en-GB",
+      completionEnabled = 1,
+      dictionary = { ["en-GB"] = { "Midgley" } },
+      disabledRules = { ["en-GB"] = { "OXFORD_SPELLING_Z_NOT_S" } },
       enabled = {
         "bib",
         "context",
