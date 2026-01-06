@@ -1,3 +1,7 @@
-# dotfiles
+# Dotfiles
 
-new dotfiles for macbook
+## Deploy command
+
+```sh
+stow -t ~/ .
+```
