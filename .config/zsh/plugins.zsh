@@ -8,6 +8,6 @@ ZSH_THEME="cloud"
 ENABLE_CORRECTION="true"
 
 # Enable plugins
-plugins=(node nvm golang kubectl dotenv zoxide vi-mode)
+plugins=(node nvm golang kubectl dotenv zoxide)
 
 source $ZSH/oh-my-zsh.sh
