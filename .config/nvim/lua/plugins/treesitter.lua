@@ -29,6 +29,7 @@ return {
           "graphql",
           "http",
           "php",
+          "prisma",
           "scss",
           "sql",
           "svelte",
