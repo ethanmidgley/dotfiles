@@ -16,3 +16,6 @@ export PATH=/opt/homebrew/opt/libpq/bin:$PATH
 # ===== EDITORS =====
 export EDITOR=nvim
 export REACT_EDITOR=nvim
+
+# ===== LATEX TEMPLATE HOME =====
+export TEXMFHOME=$HOME/.templates

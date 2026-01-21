@@ -1,0 +1,137 @@
+\ProvidesPackage{assignment}[Personal assignment style]
+
+\author{Ethan Midgley}
+
+% pagesize and layout
+%----------------------------------------
+\usepackage{geometry}
+\geometry{
+  a4paper,
+  left=25mm,
+  right=25mm,
+  top=25mm,
+  bottom=25mm,
+  headheight=19pt,
+  includehead=true,
+  heightrounded=true
+}
+
+%----------------------------------------
+% Needed for coloured text.
+%----------------------------------------
+\usepackage[dvipsnames,table,xcdraw]{xcolor}
+
+%----------------------------------------
+% Page style, header and footer.
+%----------------------------------------
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{\leftmark}
+\lhead{}
+\cfoot{\thepage}
+\lfoot{\@author}
+
+%----------------------------------------
+% Set the parskip to avoid indenting.
+%----------------------------------------
+\usepackage{parskip}
+\setlength{\parindent}{0pt}
+
+%----------------------------------------
+% Avoid overfull lines.
+%----------------------------------------
+\sloppy
+
+%----------------------------------------
+% Graphics and graphics path.
+%----------------------------------------
+\usepackage{ifthen,graphicx}
+\graphicspath{{./images/}}
+
+%----------------------------------------
+% Font: Arial
+% helvet is similar to Arial and is part of TexLive.
+%----------------------------------------
+%\usepackage{helvet}
+%\renewcommand{\familydefault}{\sfdefault}
+
+%----------------------------------------
+% For circled numbers.
+%----------------------------------------
+\usepackage{tikz}
+\newcommand{\circled}[1]{\tikz[baseline=(char.base)]{\node[shape=circle,draw,inner sep=2pt] (char) {#1};}}
+
+%----------------------------------------
+% Generate hyperlinks in the PDF document.
+%----------------------------------------
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks,
+    citecolor=black,
+    filecolor=black,
+    linkcolor=black,
+    urlcolor=black,
+    pdflang={en-GB}
+}
+
+%----------------------------------------
+% Source code formatting
+%----------------------------------------
+\definecolor{codebkgnd}{RGB}{230,230,200}
+\usepackage{listings}
+\lstset{xleftmargin=2em}
+\lstset{framexleftmargin=2em}
+\lstset{
+  basicstyle=\small\ttfamily, % Compensate for 1.5 linespacing.
+  numbers=left,
+  numberstyle=\small\color{blue},
+  stepnumber=1,
+  numbersep=5pt,
+  backgroundcolor=\color{codebkgnd},
+  showspaces=false,               % do not show spaces adding particular underscores
+  showstringspaces=false,         % do not underline spaces within strings
+  showtabs=false,                 % do not show tabs within strings adding particular underscores
+  rulecolor=\color{black},
+  tabsize=4,                      % sets default tabsize to 4 spaces
+  captionpos=t,                   % sets the caption-position to top
+  breaklines=true,                % sets automatic line breaking
+  breakatwhitespace=false,  % sets if automatic breaks should only happen at whitespace
+  keywordstyle=\color{Sepia},      % keyword style
+  commentstyle=\color{MidnightBlue},   % comment style
+  stringstyle=\color{OrangeRed}      % string literal style
+}
+
+
+%----------------------------------------
+% Colored boxes 
+%----------------------------------------
+\usepackage{todonotes}
+\usepackage{soul}
+\usepackage[many]{tcolorbox}
+
+\newtcolorbox{answer}{colback=white!25!white,
+colframe=blue!25!white,
+enhanced, breakable,
+}
+
+% \newtcolorbox{from-report}{colback=magenta!25!white,
+% colframe=magenta!25!white,
+% enhanced, breakable,
+% }
+%
+% \newtcolorbox{feedback}{colback=lime!25!white,
+% colframe=lime!25!white,
+% enhanced, breakable,
+% }
+%
+% \newtcolorbox{to-do}{colback=orange!25!white,
+% colframe=orange!25!white,
+% enhanced, breakable,
+% }
+%
+
+%----------------------------------------
+% Tables 
+%----------------------------------------
+\usepackage{tabularx}
