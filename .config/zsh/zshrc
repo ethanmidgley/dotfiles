@@ -14,7 +14,7 @@ done
 
 # ===== DISPLAY CUSTOM TERMINAL PROMPT =====
 if git rev-parse --git-dir > /dev/null 2>&1; then
-	echo -e; onefetch;
+	echo -e; onefetch --include-hidden;
 else
 	echo -e; fastfetch;
 fi

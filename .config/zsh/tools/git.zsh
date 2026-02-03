@@ -1,5 +1,5 @@
 # ====== Git ======
-alias gs="git status --short"
+alias gs="git status"
 
 alias gd="git diff --output-indicator-new=' ' --output-indicator-old=' '"
 alias gds="git diff --staged --output-indicator-new=' ' --output-indicator-old=' '"
@@ -11,7 +11,7 @@ alias gc="git commit"
 alias gp="git push"
 alias gu="git pull"
 
-alias gl="git log --all --graph --pretty=format:'%C(magenta)%h %C(white) %an %ar%C(auto) %D%n%s%n'"
+alias gl="git log --all --pretty=format:'%C(magenta)%h %ar%C(auto) %D%n %C(white)%an <%ae> %n%C(auto) %s%n'"
 alias gb="git branch"
 
 alias gi="git init"
