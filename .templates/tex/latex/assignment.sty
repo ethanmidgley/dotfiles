@@ -4,6 +4,7 @@
 
 \author{Ethan Midgley}
 
+\usepackage{changepage}
 \usepackage{enumitem}
 \usepackage{amsmath}
 \usepackage{derivative}
@@ -128,6 +129,11 @@
 %   stringstyle=\color{OrangeRed}      % string literal style
 % }
 
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+
+
 % Background + UI
 \definecolor{codebg}{RGB}{248,248,250}
 \definecolor{linenumber}{RGB}{160,160,170}
@@ -145,12 +151,12 @@
   basicstyle=\small\ttfamily\color{black},
   numbers=left,
   numberstyle=\tiny\color{linenumber},
-  numbersep=10pt,
+  numbersep=5pt,
   xleftmargin=2em,
   framexleftmargin=2em,
   frame=none,
   keywordstyle=\color{keyword}\bfseries,
-  commentstyle=\color{comment}\itshape,
+  commentstyle=\color{comment},
   stringstyle=\color{string},
   identifierstyle=\color{black},
   showstringspaces=false,
