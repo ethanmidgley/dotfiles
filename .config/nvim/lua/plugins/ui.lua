@@ -16,6 +16,11 @@ return {
       vim.api.nvim_set_hl(0, "NeoTreeNormal", { link = "Normal" })
       vim.api.nvim_set_hl(0, "NeoTreeNormalNC", { link = "Normal" })
       vim.api.nvim_set_hl(0, "NeoTreeFloatBorder", { link = "Normal" })
+
+      -- Alter the current ling highlight
+      vim.api.nvim_set_hl(0, "CursorLine", { bg = "#484852" })
+
+      vim.api.nvim_set_hl(0, "IblScope", { fg = "#FFFFFF" })
     end,
   },
 

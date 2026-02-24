@@ -1,6 +1,52 @@
 return {
 
   {
+    "lukas-reineke/indent-blankline.nvim",
+    main = "ibl",
+    ---@module "ibl"
+    ---@type ibl.config
+    opts = {
+      indent = {
+        char = "│",
+      },
+      scope = {
+        enabled = true,
+      },
+      exclude = {
+        filetypes = { "dashboard" },
+      },
+    },
+    config = function(_, opts)
+      local ibl = require("ibl")
+
+      ibl.setup(opts)
+    end,
+  },
+
+  {
+    "arnamak/stay-centered.nvim",
+    lazy = false,
+    opts = {
+      -- The filetype is determined by the vim filetype, not the file extension. In order to get the filetype, open a file and run the command:
+      -- :lua print(vim.bo.filetype)
+      skip_filetypes = { "dashboard" },
+      -- Set to false to disable by default
+      enabled = true,
+      -- allows scrolling to move the cursor without centering, default recommended
+      allow_scroll_move = true,
+      -- temporarily disables plugin on left-mouse down, allows natural mouse selection
+      -- try disabling if plugin causes lag, function uses vim.on_key
+      disable_on_mouse = true,
+    },
+    config = function(_, opts)
+      local stay_centered = require("stay-centered")
+      stay_centered.setup(opts)
+
+      vim.keymap.set({ "n", "v" }, "<Leader>tw", stay_centered.toggle, { desc = "Toggle stay-centered.nvim" })
+    end,
+  },
+
+  {
     "folke/todo-comments.nvim",
     dependencies = { "nvim-lua/plenary.nvim" },
     opts = {
@@ -49,7 +95,32 @@ return {
       local actions = require("telescope.actions")
 
       telescope.setup({
+        pickers = {
+          find_files = {
+            hidden = true,
+            find_command = {
+              "fd",
+              "--type",
+              "f",
+              "--hidden",
+              "--exclude",
+              "node_modules",
+              "--exclude",
+              ".git",
+            },
+          },
+          live_grep = {
+            additional_args = function()
+              return {
+                "--hidden",
+              }
+            end,
+          },
+        },
         defaults = {
+          file_ignore_patterns = {
+            "%.git/",
+          },
           mappings = {
             i = {
               ["<C-k>"] = actions.move_selection_previous,
