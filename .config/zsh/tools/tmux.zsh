@@ -8,3 +8,8 @@ function ta() {
 function trm() {
   tmux kill-session -t "$1"
 } 
+
+# ===== AUTO TMUX STARTUP =====
+if [ -z "$TMUX" ]; then
+  tmux new-session
+fi
