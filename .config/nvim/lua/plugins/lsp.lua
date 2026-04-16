@@ -36,6 +36,9 @@ return {
           "vue_ls",
         },
         automatic_installation = true,
+        automatic_enable = {
+          exclude = { "julials" },
+        },
       })
 
       mason_tool_installer.setup({
@@ -63,6 +66,12 @@ return {
       local mason_lspconfig = require("mason-lspconfig")
       local cmp_nvim_lsp = require("cmp_nvim_lsp")
       local keymap = vim.keymap
+      local capabilities = cmp_nvim_lsp.default_capabilities()
+
+      -- Set up julia ls manuanly
+      lspconfig.julials.setup({
+        capabilities = capabilities,
+      })
 
       vim.api.nvim_create_autocmd("LspAttach", {
         group = vim.api.nvim_create_augroup("UserLspConfig", {}),
