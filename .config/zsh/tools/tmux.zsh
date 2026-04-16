@@ -11,5 +11,5 @@ function trm() {
 
 # ===== AUTO TMUX STARTUP =====
 if [ -z "$TMUX" ]; then
-  tmux new-session
+  tmux new-session -A -s default
 fi
