@@ -13,8 +13,10 @@ done
 [[ -f ~/.config/zsh/aliases.zsh ]] && source ~/.config/zsh/aliases.zsh 
 
 # ===== DISPLAY CUSTOM TERMINAL PROMPT =====
-if git rev-parse --git-dir > /dev/null 2>&1; then
-	echo -e; onefetch --include-hidden;
-else
-	echo -e; fastfetch;
+if [ -z "$TMUX" ]; then
+  if git rev-parse --git-dir > /dev/null 2>&1; then
+    echo -e; onefetch --include-hidden;
+  else
+    echo -e; fastfetch;
+  fi
 fi
