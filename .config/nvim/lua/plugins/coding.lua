@@ -46,4 +46,11 @@ return {
       markdown = true,
     },
   },
+
+  {
+    "nvim-mini/mini.align",
+    version = "*",
+    event = "VeryLazy",
+    opts = {},
+  },
 }
