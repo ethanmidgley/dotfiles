@@ -99,6 +99,9 @@ return {
           opts.desc = "Smart rename"
           keymap.set("n", "<leader>rn", vim.lsp.buf.rename, opts)
 
+          opts.desc = "Show workspace diagnostics"
+          keymap.set("n", "<leader>wD", "<cmd>Telescope diagnostics<Return>", opts)
+
           opts.desc = "Show buffer diagnostics"
           keymap.set("n", "<leader>D", "<cmd>Telescope diagnostics bufnr=0<Return>", opts)
 
