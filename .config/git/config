@@ -16,11 +16,8 @@
 [url "git@github.com:"]
   insteadOf = "gh:"
 
-[url "ssh://git@git-artemis"]
+[url "git@git-artemis:"]
   insteadOf = "artemis:"
-
-[url "git@github.com:ethanmidgley/"]
-  insteadOf = "em:"
 
 [url "https://gitlab.cis.strath.ac.uk/mhb22136/"]
   insteadOf = "cafe:"
