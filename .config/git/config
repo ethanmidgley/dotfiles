@@ -10,18 +10,6 @@
 [advice]
   addEmptyPathspec = false
 
-[url "git@github.com:ethanmidgley/"]
-  insteadOf = "em:"
-
-[url "git@github.com:"]
-  insteadOf = "gh:"
-
-[url "git@git-artemis:"]
-  insteadOf = "artemis:"
-
-[url "https://gitlab.cis.strath.ac.uk/mhb22136/"]
-  insteadOf = "cafe:"
-
 [init]
 	defaultBranch = master
 
@@ -95,9 +83,6 @@
 [pager]
   branch = false
   tag = false
-
-[includeIf "gitdir:~/Documents/strathclyde/"]
-  path = "~/Documents/strathclyde/.gitconfig"
 
 [http]
 	postBuffer = 1524288000

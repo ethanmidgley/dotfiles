@@ -21,35 +21,12 @@ return {
       })
 
       mason_lspconfig.setup({
-        ensure_installed = {
-          "vtsls",
-          "html",
-          "cssls",
-          "tailwindcss",
-          "svelte",
-          "lua_ls",
-          "graphql",
-          "emmet_ls",
-          "prismals",
-          "pyright",
-          "elixirls",
-          "vue_ls",
-        },
+        ensure_installed = {},
         automatic_installation = true,
-        automatic_enable = {
-          exclude = { "julials" },
-        },
       })
 
       mason_tool_installer.setup({
-        ensure_installed = {
-          "prettier", -- prettier formatter
-          "stylua", -- lua formatter
-          "isort", -- python formatter
-          "black", -- python formatter
-          "pylint",
-          "eslint_d", -- js linter
-        },
+        ensure_installed = {},
       })
     end,
   },
