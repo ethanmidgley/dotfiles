@@ -39,7 +39,7 @@ return {
 
       -- `ignored_filetypes` configures which filetypes to ignore when
       -- displaying trailing whitespace
-      ignored_filetypes = { "TelescopePrompt", "Trouble", "help", "dashboard" },
+      ignored_filetypes = { "TelescopePrompt", "Trouble", "help", "dashboard", "neo-tree-popup", "gitcommit" },
 
       -- `ignore_terminal` configures whether to ignore terminal buffers
       ignore_terminal = true,
