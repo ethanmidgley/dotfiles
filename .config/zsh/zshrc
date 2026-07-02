@@ -10,7 +10,7 @@ for file in ~/.config/zsh/tools/*.zsh; do
 done
 
 # ===== LOAD TOOL INDEPENDENT ALIASES =====
-[[ -f ~/.config/zsh/aliases.zsh ]] && source ~/.config/zsh/aliases.zsh 
+[[ -f ~/.config/zsh/aliases.zsh ]] && source ~/.config/zsh/aliases.zsh
 
 # ===== DISPLAY CUSTOM TERMINAL PROMPT =====
 if [ -z "$TMUX" ]; then
