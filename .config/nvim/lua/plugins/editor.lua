@@ -57,6 +57,39 @@ return {
   },
 
   {
+    "lewis6991/gitsigns.nvim",
+    opts = {
+      signs_staged_enable = true,
+      signcolumn = true, -- Toggle with `:Gitsigns toggle_signs`
+      numhl = true, -- Toggle with `:Gitsigns toggle_numhl`
+      linehl = false, -- Toggle with `:Gitsigns toggle_linehl`
+      word_diff = false, -- Toggle with `:Gitsigns toggle_word_diff`
+      watch_gitdir = {
+        follow_files = true,
+      },
+      auto_attach = true,
+      attach_to_untracked = false,
+      current_line_blame_formatter = "<author>, <author_time:%R> - <summary>",
+      blame_formatter = nil, -- Use default
+      sign_priority = 6,
+      update_debounce = 100,
+      status_formatter = nil, -- Use default
+      max_file_length = 40000, -- Disable if file is longer than this (in lines)
+    },
+    config = function(_, opts)
+      local gitsigns = require("gitsigns")
+
+      opts.on_attach = function(bufnr)
+        vim.keymap.set("n", "<Leader>gb", function()
+          gitsigns.blame_line({ full = true })
+        end, { desc = "Show git blame for current line", buffer = bufnr })
+      end
+
+      gitsigns.setup(opts)
+    end,
+  },
+
+  {
     "arnamak/stay-centered.nvim",
     lazy = false,
     opts = {

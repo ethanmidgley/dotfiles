@@ -44,6 +44,7 @@ keymap.set("n", "<Leader>ff", ":Telescope find_files<Return>")
 keymap.set("n", "<Leader>fr", ":Telescope oldfiles<Return>")
 keymap.set("n", "<Leader>fs", ":Telescope live_grep<Return>")
 keymap.set("n", "<Leader>fc", ":Telescope grep_string<Return>")
+keymap.set("n", "<Leader>gs", ":Telescope git_status<Return>")
 
 keymap.set("n", "<C-j>", function()
   vim.diagnostic.goto_next()
