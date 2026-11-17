@@ -1,4 +1,11 @@
 return {
+  {
+    "ethanmidgley/magic-case.nvim",
+    config = function()
+      local magic_case = require("magic-case")
+      vim.keymap.set("i", "<C-g>m", magic_case.start, { desc = "Start magic case" })
+    end,
+  },
 
   {
     "m4xshen/hardtime.nvim",
